@@ -8,18 +8,14 @@ export default class PlaceList extends Component
   render() {
 
     return (
-      <div className="row">
-        <div className="col s4">
-          <div className="placelist">
-            {this
-              .props
-              .businesses
-              .map((businesse, index) => {
-                return <PlaceItem key={index} businesse={businesse}/>
-              })
+      <div className="placelist">
+        {this
+          .props
+          .businesses
+          .map((businesse, index) => {
+            return <PlaceItem key={index} businesse={businesse}/>
+          })
 }
-          </div>
-        </div>
       </div>
     )
   }

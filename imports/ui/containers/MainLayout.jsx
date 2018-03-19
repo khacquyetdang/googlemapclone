@@ -9,7 +9,7 @@ export default class MainLayout extends React.Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className="main">
           <Header/>
           <Switch>
             <Route exact path='/' component={Home}/>
