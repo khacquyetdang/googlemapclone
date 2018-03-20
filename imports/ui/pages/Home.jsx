@@ -12,6 +12,7 @@ export default class Home extends Component
   {
     super(props);
     this.state = {
+      place: null,
       placesData: null,
       loading: false,
       offset: 1,
@@ -33,23 +34,15 @@ export default class Home extends Component
     this.renderOffSetBar = this
       .renderOffSetBar
       .bind(this);
+    this.nextOffSet = this
+      .nextOffSet
+      .bind(this);
+    this.previousOffSet = this
+      .previousOffSet
+      .bind(this);
   }
   componentDidMount() {
-    let options = {
-      params: {
-        "location": "Paris"
-      }
-    };
-    Meteor.call('getPlaces', options, (err, res) => {
-      if (err) {
-        console.log(JSON.stringify(err, null, 2))
-      } else {
-        console.log(res, "success!");
-        if (res.statusCode === 200) {
-          this.setState({placesData: res.data});
-        }
-      }
-    });
+    this.search("Paris", 1);
   }
 
   search(place, offset) {
@@ -62,6 +55,7 @@ export default class Home extends Component
         "limit": this.state.limitSearch
       }
     };
+    this.setState({place: place})
     Meteor.call('getPlaces', options, (err, res) => {
       if (err) {
         var error = JSON.stringify(err, null, 3);
@@ -91,6 +85,12 @@ export default class Home extends Component
     this.setState({sidebarOpen: open});
   }
 
+  previousOffSet() {
+    this.search(this.state.place, this.state.offset - this.state.limitSearch);
+  }
+  nextOffSet() {
+    this.search(this.state.place, this.state.offset + this.state.limitSearch);
+  }
   renderOffSetBar() {
 
     if (this.state.placesData) {
@@ -101,13 +101,12 @@ export default class Home extends Component
             {`Showing results ${this.state.offset} - ${this.state.offset + this.state.limitSearch}`}
           </span>
           {this.state.offset > 1
-            ? <a className="waves-effect">
+            ? <a className="waves-effect"
+            onClick={this.previousOffSet}>
                 <i className="material-icons right">navigate_before</i>
               </a>
             : null}
-          <a
-            className="waves-effect"
-            onClick={(e) => this.search(this.state.place, this.state.offset + this.state.offset.limit)}>
+          <a className="waves-effect" onClick={this.nextOffSet}>
             <i className="material-icons right">navigate_next</i>
           </a>
         </div>
