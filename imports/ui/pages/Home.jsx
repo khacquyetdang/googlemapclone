@@ -77,7 +77,8 @@ export default class Home extends Component
     e.which = e.which || e.keyCode;
     if (e.which === 13) {
       console.log("handlerSearchKeyPress: ", e.target.value);
-      this.search(e.target.value, this.state.offset);
+      this.setState({offset: 1});
+      this.search(e.target.value, 1);
     }
   }
 
@@ -101,8 +102,7 @@ export default class Home extends Component
             {`Showing results ${this.state.offset} - ${this.state.offset + this.state.limitSearch}`}
           </span>
           {this.state.offset > 1
-            ? <a className="waves-effect"
-            onClick={this.previousOffSet}>
+            ? <a className="waves-effect" onClick={this.previousOffSet}>
                 <i className="material-icons right">navigate_before</i>
               </a>
             : null}
