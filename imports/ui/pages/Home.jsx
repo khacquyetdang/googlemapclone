@@ -17,7 +17,8 @@ export default class Home extends Component
       offset: 1,
       limitSearch: 20, // normally pass by props
       sidebarOpen: true,
-      lng: 2.3421478271, 
+      error: null,
+      lng: 2.3421478271,
       lat: 48.8619586068
     };
     this.onSetSidebarOpen = this
@@ -52,6 +53,7 @@ export default class Home extends Component
   }
 
   search(place, offset) {
+    console.log("search place:", place);
     this.setState({loading: true});
     let options = {
       params: {
@@ -62,11 +64,15 @@ export default class Home extends Component
     };
     Meteor.call('getPlaces', options, (err, res) => {
       if (err) {
-        console.log(JSON.stringify(err, null, 2))
+        var error = JSON.stringify(err, null, 3);
+
+        error = JSON.parse(error);
+        this.setState({error: error});
+        console.log(JSON.stringify(err, null, 3));
       } else {
         console.log(res, "success!");
         if (res.statusCode === 200) {
-          this.setState({placesData: res.data});
+          this.setState({placesData: res.data, lat: res.data.region.center.latitude, lng: res.data.region.center.longitude});
         }
       }
       this.setState({loading: false, offset: offset});
@@ -101,8 +107,7 @@ export default class Home extends Component
             : null}
           <a
             className="waves-effect"
-            onClick={
-              (e) => this.search(this.state.place, this.state.offset + this.state.offset.limit)}>
+            onClick={(e) => this.search(this.state.place, this.state.offset + this.state.offset.limit)}>
             <i className="material-icons right">navigate_next</i>
           </a>
         </div>
@@ -127,13 +132,21 @@ export default class Home extends Component
                     <div className="indeterminate"></div>
                   </div>
                 : null}
+              {this.state.error && this.state.error.reason && this.state.error.reason.description && <div>{this.state.error.reason.description
+}</div>}
               <SearchBar onKeyPress={this.handlerSearchKeyPress}></SearchBar>
               <PlaceList businesses={businesses}/> {this.renderOffSetBar()}
             </div>
           </div>
-          <MyMap lng={this.state.lng}
-           lat={this.state.lat}
-           placesData={this.state.placesData}/>
+          <div className="col m8 12">
+            <div className="mapContainer">
+              <MyMap
+                isMarkerShown={true}
+                lng={this.state.lng}
+                lat={this.state.lat}
+                placesData={this.state.placesData}/>
+            </div>
+          </div>
         </div>
       </div>
     );

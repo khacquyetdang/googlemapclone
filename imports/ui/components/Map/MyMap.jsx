@@ -1,36 +1,36 @@
-import React from "react";
+import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import {compose, withProps} from "recompose";
-import {withScriptjs, withGoogleMap, GoogleMap, Marker} from "react-google-maps";
+import GoogleMapReact from 'google-map-react';
+import Marker from '../Marker/index.jsx';
+class MyMap extends Component {
 
-const MyMap = compose(withProps({
-  /**
-     * Note: create and replace your own key in the Google console.
-     * https://console.developers.google.com/apis/dashboard
-     * The key "AIzaSyBkNaAGLEVq0YLQMi-PYEMabFeREadYe1Q" can be ONLY used in this sandbox (no forked).
-     */
-  googleMapURL: "https://maps.googleapis.com/maps/api/js?key=" + Meteor.settings.public.googlemapapi.key + "&v=3.exp&libraries=geometry,drawing,places",
-  loadingElement: <div style={{
-    height: `100%`
-  }}/>,
-  containerElement: <div style={{
-    height: `85vh`
-  }}/>,
-  mapElement: <div style={{
-      height: `100%`
-    }}/>
-}), withScriptjs, withGoogleMap)(props => (
-  <GoogleMap
-    defaultZoom={12}
-    defaultCenter={{
-    lng: props.lng,
-    lat: props.lat
-  }}>
-    {props.isMarkerShown && props.placesData && (props.placesData.map(place => <Marker position={{
-      lat: place.coordinates.latitude,
-      lng: place.coordinates.longitude
-    }}/>))}
-  </GoogleMap>
-));
+  render() {
+    let businesses = this.props.placesData
+      ? this.props.placesData.businesses
+      : null;
+
+    console.log("map center lng: ", this.props.lng, "lat: ", this.props.lat);
+    return (
+      <GoogleMapReact
+        bootstrapURLKeys={{
+        key: Meteor.settings.public.googlemapapi.key
+      }}
+        defaultZoom={12}
+        center={{
+        lng: this.props.lng,
+        lat: this.props.lat
+      }}>
+        {this.props.isMarkerShown && businesses
+          ? businesses.map(businesse => <Marker
+            key={businesse.id}
+            businesse={businesse}
+            lat={businesse.coordinates.latitude}
+            lng={businesse.coordinates.longitude}/>)
+          : null}
+      </GoogleMapReact>
+    );
+  }
+}
 
 export default MyMap;
