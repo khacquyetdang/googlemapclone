@@ -17,7 +17,6 @@ standard-minifier-js    # JS minifier run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript             # Enable ECMAScript2015+ syntax in app code
 
-autopublish             # Publish all data to the clients (for prototyping)
 insecure                # Allow all DB writes from clients (for prototyping)
 
 session
@@ -35,4 +34,7 @@ gadicc:blaze-react-component
 fourseven:scss
 materialize:materialize@=0.97.7
 http
-std:accounts-material
+std:accounts-ui@1.3.2
+
+accounts-twitter
+service-configuration

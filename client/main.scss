@@ -1,0 +1,31 @@
+/* CSS declarations go here */
+
+Header a.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+Header a,
+#login-buttons a {
+  text-decoration: none;
+  margin-right: 10px;
+  color: inherit;
+}
+
+.accounts-ui {
+  button {
+    margin-right: 5px;
+  }
+  .social-buttons {
+    button {
+      margin-top: 5px;
+    }
+  }
+  .password-or-service {
+    margin: 5px;
+    font-weight: bold;
+  }
+  a {
+    margin: 5px;
+  }
+}

@@ -3,23 +3,12 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Header from '../components/Header/Header';
 import Home from '../pages/Home.jsx';
 import NotFound from '../pages/NotFound.jsx';
-import {Accounts, STATES} from 'meteor/std:accounts-material';
-import Login from '../components/AccountsUi/Login.jsx';
-import Register from '../components/AccountsUi/Register.jsx';
-import AccountsUI from '../components/AccountsUi/index.jsx';
-Accounts
-  .ui
-  .config({passwordSignupFields: 'EMAIL_ONLY'});
+import AccountsUiWrapper from '../components/AccountsUi/AccountsUIWrapper';
+import MyAccount from '../components/AccountsUi/MyAccount';
 
-class SignUp extends React.Component {
-  render() {
-    return (
-      <div>
-        SignUp
-      </div>
-    )
-  }
-};
+import Register from '../components/AccountsUi/Register.jsx';
+
+
 export default class MainLayout extends React.Component {
   render() {
     return (
@@ -28,8 +17,8 @@ export default class MainLayout extends React.Component {
           <Header/>
           <Switch>
             <Route exact path='/' component={Home}/>
-            <Route path="/signin" component={Login}/>
-            <Route path="/signup" component={Register}/>
+            <Route path="/signin" component={AccountsUiWrapper}/>
+            <Route path="/myaccount" component={MyAccount}/>
             <Route component={NotFound}/>
           </Switch>
         </div>
