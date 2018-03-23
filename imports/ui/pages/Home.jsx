@@ -5,6 +5,7 @@ import SearchBar from '../components/SearchBar/SearchBar.jsx';
 import Sidebar from 'react-sidebar';
 import {SideNav, Button} from 'react-materialize';
 import MyMap from '../components/Map/MyMap.jsx';
+import {User} from '../../api/User';
 import './Home.scss';
 export default class Home extends Component
 {
@@ -39,6 +40,9 @@ export default class Home extends Component
       .bind(this);
     this.previousOffSet = this
       .previousOffSet
+      .bind(this);
+    this
+      .goToPlaceButtonClick
       .bind(this);
   }
   componentDidMount() {
@@ -114,6 +118,21 @@ export default class Home extends Component
     }
     return null;
   }
+  goToPlaceButtonClick(place) {
+    if (User.isLoggedIn()) {
+      Meteor
+        .call('goToPlace', place, function (err, result) {
+          if (err) {
+            if (err.message) {
+              Materialize.toast(err.message, 4000);
+            }
+          }
+        });
+      console.log("on Go Clicked: ", place);
+    } else {
+      Materialize.toast('Please login to add this adresse!', 4000);      
+    }
+  }
   render() {
     let businesses = [];
     if (this.state.placesData) {
@@ -134,7 +153,9 @@ export default class Home extends Component
               {this.state.error && this.state.error.reason && this.state.error.reason.description && <div>{this.state.error.reason.description
 }</div>}
               <SearchBar onKeyPress={this.handlerSearchKeyPress}></SearchBar>
-              <PlaceList businesses={businesses}/> {this.renderOffSetBar()}
+              <PlaceList
+                businesses={businesses}
+                onGoToPlaceClick={this.goToPlaceButtonClick}/> {this.renderOffSetBar()}
             </div>
           </div>
           <div className="col m8 12">

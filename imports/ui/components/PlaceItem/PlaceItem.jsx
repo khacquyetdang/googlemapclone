@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReactStars from 'react-stars';
 import './PlaceItem.scss';
+import { Button, Icon } from 'react-materialize';
 
 export default class PlaceItem extends Component {
     render() {
@@ -45,9 +46,11 @@ export default class PlaceItem extends Component {
                             </p>
                         </div>
                         <div className="card-action">
-                            <button className="btn waves-effect waves-light" type="submit" name="action">Go
-                                <i className="material-icons right">send</i>
-                            </button>
+                            <Button
+                            onClick={() => this.props.onGoToPlaceClick(this.props.businesse)}
+                            waves="light">Go
+                                <Icon right>send</Icon>
+                            </Button>
                         </div>
                     </div>
 
