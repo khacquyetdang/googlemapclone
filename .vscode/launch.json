@@ -2,26 +2,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "chrome",
-            "request": "launch",
-            "name": "Meteor: Chrome",
-            "url": "http://localhost:3000",
-            "webRoot": "${workspaceRoot}"
-        },
-        {
             "type": "node",
-            "request": "launch",
-            "name": "Meteor: Node",
-            "runtimeExecutable": "npm",
-            "runtimeArgs": ["run", "debug"],
-            "port": 9229,
-            "timeout": 30000
+            "request": "attach",
+            "name": "Attach to meteor",
+            "restart": true,
+            "sourceMaps": true,
+            "port": 5959,
         }
-    ],
-    "compounds": [
-        {
-            "name": "Meteor: All",
-            "configurations": ["Meteor: Node", "Meteor: Chrome"]
-        }
-    ]
+    ] 
 }

@@ -17,11 +17,13 @@ Meteor.methods({
         options.headers = {
             "Authorization": "Bearer " + Meteor.settings.yieldapi.apikey
         }
-        console.log("options : ", options);
         return callService('GET', 'https://api.yelp.com/v3/businesses/search', options).then((result) => result).catch((error) => {
-            console.error('error call yeild:', error);
-            //throw new Meteor.Error('500', `${error.message}`);
-            throw error.toJson();
+            if (error.response) {
+                let errRespData = error.response.data.error;
+                throw new Meteor.Error(error.response.statusCode, errRespData.code, errRespData.description);
+                return;
+            }
+            throw error;
         });
     }
 });

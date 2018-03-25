@@ -62,15 +62,15 @@ export default class Home extends Component
     this.setState({place: place})
     Meteor.call('getPlaces', options, (err, res) => {
       if (err) {
-        var error = JSON.stringify(err, null, 3);
-
-        error = JSON.parse(error);
-        this.setState({error: error});
-        console.log(JSON.stringify(err, null, 3));
+        if (err.details) {
+          this.setState({error: err.details});
+        } else {
+          this.setState({error: "Some things went wrong please try again"});
+        }
       } else {
         console.log(res, "success!");
         if (res.statusCode === 200) {
-          this.setState({placesData: res.data, lat: res.data.region.center.latitude, lng: res.data.region.center.longitude});
+          this.setState({error: null, placesData: res.data, lat: res.data.region.center.latitude, lng: res.data.region.center.longitude});
         }
       }
       this.setState({loading: false, offset: offset});
@@ -130,7 +130,7 @@ export default class Home extends Component
         });
       console.log("on Go Clicked: ", place);
     } else {
-      Materialize.toast('Please login to add this adresse!', 4000);      
+      Materialize.toast('Please login to add this adresse!', 4000);
     }
   }
   render() {
@@ -150,9 +150,7 @@ export default class Home extends Component
                     <div className="indeterminate"></div>
                   </div>
                 : null}
-              {this.state.error && this.state.error.reason && this.state.error.reason.description && <div>{this.state.error.reason.description
-}</div>}
-              <SearchBar onKeyPress={this.handlerSearchKeyPress}></SearchBar>
+              <SearchBar error={this.state.error} onKeyPress={this.handlerSearchKeyPress}></SearchBar>
               <PlaceList
                 businesses={businesses}
                 onGoToPlaceClick={this.goToPlaceButtonClick}/> {this.renderOffSetBar()}

@@ -8,6 +8,12 @@
         right: 10px;
         cursor: pointer;
     }
+    .error {
+        font-style: italic;
+        font-size: 12px;
+        text-align: center;
+        color: #f44336;
+    }
 }
 
 #searchInput {
@@ -21,4 +27,5 @@
     box-sizing: border-box;
     padding: 0 45px 0 15px;
     border: 0;
+ 
 }
