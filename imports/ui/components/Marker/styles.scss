@@ -3,6 +3,37 @@
     width: 30px;
     height: 30px;
 }
+
 i.icon-marker {
     color: #eceff1;
+}
+
+.itemActive {
+    z-index: 1000;
+    background-color: tomato;
+    max-width: 200px;
+    max-height: 200px;
+    color: sandybrown;
+    border: 2px solid sandybrown;
+    .circle {
+        background: sandybrown;
+
+    }
+}
+.itemInActive {
+    max-width: 100px;
+    max-height: 100px;
+    .circle {
+        background: #38a9e4;
+    }
+}
+.circle {
+    width: 100%;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 16px;
+    padding: 50% 0;
+    line-height: 0;
+    position: relative;
+    color: white;
 }

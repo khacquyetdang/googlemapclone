@@ -14,7 +14,8 @@ export default class PlaceList extends Component
           .businesses
           .map((businesse, index) => {
             return <PlaceItem
-            onGoToPlaceClick={this.props.onGoToPlaceClick} 
+            onItemHover={this.props.onItemHover}
+            onPlaceClick={this.props.onPlaceClick} 
             key={index} businesse={businesse}/>
           })
 }

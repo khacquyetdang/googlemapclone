@@ -15,6 +15,7 @@ export default class Home extends Component
     this.state = {
       place: null,
       placesData: null,
+      businesseIdActive : null,
       loading: false,
       offset: 1,
       limitSearch: 20, // normally pass by props
@@ -41,8 +42,8 @@ export default class Home extends Component
     this.previousOffSet = this
       .previousOffSet
       .bind(this);
-    this
-      .goToPlaceButtonClick
+    this.onPlaceClick = this
+      .onPlaceClick
       .bind(this);
   }
   componentDidMount() {
@@ -118,16 +119,30 @@ export default class Home extends Component
     }
     return null;
   }
-  goToPlaceButtonClick(place) {
+  onPlaceClick(place, isGoing) {
     if (User.isLoggedIn()) {
-      Meteor
-        .call('goToPlace', place, function (err, result) {
-          if (err) {
-            if (err.message) {
-              Materialize.toast(err.message, 4000);
-            }
+      Meteor.call('goToPlace', place, (err, result) => {
+        if (err) {
+          if (err.message) {
+            Materialize.toast(err.message, 4000);
           }
-        });
+        } else {
+          let newPlacesData = Object.assign({}, this.state.placesData);
+
+          newPlacesData.businesses = this
+            .state
+            .placesData
+            .businesses
+            .map(businesse => {
+              if (businesse.id === result.idPlace) {
+                businesse.userIds = result.userIds;
+              }
+              return businesse;
+            });
+
+          this.setState({placesData: newPlacesData});
+        }
+      });
       console.log("on Go Clicked: ", place);
     } else {
       Materialize.toast('Please login to add this adresse!', 4000);
@@ -151,9 +166,9 @@ export default class Home extends Component
                   </div>
                 : null}
               <SearchBar error={this.state.error} onKeyPress={this.handlerSearchKeyPress}></SearchBar>
-              <PlaceList
-                businesses={businesses}
-                onGoToPlaceClick={this.goToPlaceButtonClick}/> {this.renderOffSetBar()}
+              <PlaceList businesses={businesses}
+              onItemHover={(id) => { this.setState({businesseIdActive : id})}}
+              onPlaceClick={this.onPlaceClick}/> {this.renderOffSetBar()}
             </div>
           </div>
           <div className="col m8 12">
@@ -162,6 +177,7 @@ export default class Home extends Component
                 isMarkerShown={true}
                 lng={this.state.lng}
                 lat={this.state.lat}
+                businesseIdActive = { this.state.businesseIdActive}
                 placesData={this.state.placesData}/>
             </div>
           </div>

@@ -19,7 +19,8 @@ export default class PlaceItem extends Component {
         
         let peopleGoingToThisPlace;
         let userIds = this.props.businesse.userIds;
-        if (userIds)
+        let isGoing = false;
+        if (userIds && userIds.length > 0)
         {
             if (userIds.includes(User.id()))
             {
@@ -29,13 +30,16 @@ export default class PlaceItem extends Component {
                 } else {
                     peopleGoingToThisPlace = `You and ${userIds.length - 1} other(s) person(s) want to go this place`;                    
                 }
+                isGoing = true;
             } else {
                 peopleGoingToThisPlace = `${userIds.length} person(s) want to go this place`;                    
                 
             }
         }
         return (
-            <div className="place-container">
+            <div 
+            onMouseEnter={() => this.props.onItemHover(this.props.businesse.id)}
+            className="place-container">
                 <div className="card horizontal darken-1">
                     <div className="card-stacked">
                         <div className="card-content">
@@ -66,8 +70,8 @@ export default class PlaceItem extends Component {
                         </div>
                         <div className="card-action">
                             <Button
-                                onClick={() => this.props.onGoToPlaceClick(this.props.businesse)}
-                                waves="light">Go
+                                onClick={() => this.props.onPlaceClick(this.props.businesse, isGoing)}
+                                waves="light">{isGoing ? "Don't go" : "Go" }
                                 <Icon right>send</Icon>
                             </Button>
                             { peopleGoingToThisPlace && <div className="people">{peopleGoingToThisPlace}</div> }

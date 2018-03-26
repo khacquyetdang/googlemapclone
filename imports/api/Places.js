@@ -61,5 +61,6 @@ Meteor.methods({
 
             }
         }
+        return Places.findOne({"idPlace": newPlace.id});
     }
 });
