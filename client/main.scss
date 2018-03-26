@@ -1,5 +1,5 @@
 /* CSS declarations go here */
-
+$background: rgba(0, 0, 0, 0.75);
 .main {
   display: flex;
   min-height: 100vh;
@@ -7,9 +7,16 @@
   main {
     flex: 1 0 auto;
   }
-  
 }
 
+nav {
+  background-color:  $background !important;
+}
+
+
+footer.page-footer {
+  background-color:  $background !important;
+}
 
 Header a.active {
   font-weight: bold;

@@ -1,0 +1,50 @@
+//@import "{materialize:materialize@=0.97.7}/components/color.scss";
+//@import '{materialize:materialize@=0.97.7}/sass/components/_variables.scss';
+//@import '{materialize:materialize}/sass/components/_variables.scss';
+$detailcolor: color("materialize-grey", "lighten-1") !default;
+@import '../../styles/colors.scss';
+.card {
+    padding: 5px;
+    margin: 2px 5px;
+}
+
+.placeTitle {
+    font-size: 14px;
+}
+
+.card-image {
+    width: 150px;
+}
+
+.card-image img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+}
+
+.img-detail {
+    max-width: 100% !important;
+    max-height: 100% !important;
+}
+
+.placeDetail {
+    color: $grey-color !important;
+    font-size: 12px;
+}
+
+.reviewCount {
+    color: $grey-color !important;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.placeRating {
+    font-size: 10px;
+}
+
+.people {
+    font-style: italic;
+    font-size: 12px;
+    margin: 2px;
+}

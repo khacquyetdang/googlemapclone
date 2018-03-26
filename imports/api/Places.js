@@ -1,13 +1,19 @@
 import {Meteor} from 'meteor/meteor';
-
+import {User} from './User';
 export const Places = new Mongo.Collection('places');
 
 if (Meteor.isServer) {
     // This code only runs on the server
     Meteor
-        .publish('places', function tasksPublication() {
-            return Places.find();
-        });
+        .publish('placesByUserId', function tasksPublication() {
+            if (this.userId) 
+                return Places.find({
+                    userIds: {
+                        $eq: this.userId
+                    }
+                });
+            }
+        );
 }
 
 Meteor.methods({

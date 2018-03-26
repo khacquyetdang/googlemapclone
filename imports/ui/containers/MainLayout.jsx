@@ -5,7 +5,7 @@ import MyFooter from '../components/MyFooter/MyFooter';
 import Home from '../pages/Home.jsx';
 import NotFound from '../pages/NotFound.jsx';
 import AccountsUiWrapper from '../components/AccountsUi/AccountsUIWrapper';
-import MyAccount from '../components/AccountsUi/MyAccount';
+import MyAccount from '../pages/MyAccount';
 
 import Register from '../components/AccountsUi/Register.jsx';
 
