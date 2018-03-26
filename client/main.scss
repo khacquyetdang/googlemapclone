@@ -1,5 +1,16 @@
 /* CSS declarations go here */
 
+.main {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  main {
+    flex: 1 0 auto;
+  }
+  
+}
+
+
 Header a.active {
   font-weight: bold;
   text-decoration: underline;

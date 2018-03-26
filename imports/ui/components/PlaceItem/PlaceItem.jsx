@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import ReactStars from 'react-stars';
 import './PlaceItem.scss';
-import { Button, Icon } from 'react-materialize';
+import {User} from '../../../api/User';
+import {Button, Icon} from 'react-materialize';
 
 export default class PlaceItem extends Component {
     render() {
@@ -15,6 +16,24 @@ export default class PlaceItem extends Component {
                 accu = accu + " " + current;
                 return accu;
             }, "");
+        
+        let peopleGoingToThisPlace;
+        let userIds = this.props.businesse.userIds;
+        if (userIds)
+        {
+            if (userIds.includes(User.id()))
+            {
+                if (userIds.length === 1)
+                {
+                    peopleGoingToThisPlace = "You want to go this place";
+                } else {
+                    peopleGoingToThisPlace = `You and ${userIds.length - 1} other(s) person(s) want to go this place`;                    
+                }
+            } else {
+                peopleGoingToThisPlace = `${userIds.length} person(s) want to go this place`;                    
+                
+            }
+        }
         return (
             <div className="place-container">
                 <div className="card horizontal darken-1">
@@ -47,10 +66,11 @@ export default class PlaceItem extends Component {
                         </div>
                         <div className="card-action">
                             <Button
-                            onClick={() => this.props.onGoToPlaceClick(this.props.businesse)}
-                            waves="light">Go
+                                onClick={() => this.props.onGoToPlaceClick(this.props.businesse)}
+                                waves="light">Go
                                 <Icon right>send</Icon>
                             </Button>
+                            { peopleGoingToThisPlace && <div className="people">{peopleGoingToThisPlace}</div> }
                         </div>
                     </div>
 

@@ -8,7 +8,7 @@ import {User} from '../../../api/User';
 export default class Header extends React.Component {
   render() {
     return (
-      <div>
+      <header>
         <Navbar className="nav-container brand-logo" brand="InTheCity" right>
           <NavItem href="/">Home
           </NavItem>
@@ -17,7 +17,7 @@ export default class Header extends React.Component {
             : <NavItem href="/myaccount">My account</NavItem>
 }
         </Navbar>
-      </div>
+      </header>
     );
   }
 }
