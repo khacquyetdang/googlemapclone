@@ -155,9 +155,7 @@ export default class Home extends Component
   }
 
   openInNewTab(url) {
-    console.log("openInNewTab url ", url);
     let win = window.open(url, '_blank');
-    //win.focus();
   }
   render() {
     let businesses = [];

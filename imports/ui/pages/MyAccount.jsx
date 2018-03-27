@@ -22,6 +22,9 @@ class MyAccount extends React.Component
             formState: STATES.PROFILE
         }
     }
+    openInNewTab(url) {
+        let win = window.open(url, '_blank');
+    }
 
     render() {
         if (!this.props.currentUser) {
@@ -31,7 +34,9 @@ class MyAccount extends React.Component
         return (
             <Row>
                 <Col s={12} m={6} offset="m3">
-                    <MyPlaceList places={this.props.myplaces}/>
+                    <MyPlaceList 
+                    onItemClick={this.openInNewTab}
+                    places={this.props.myplaces}/>
                     <Card>
                         <Accounts.ui.LoginForm formState={STATES.PROFILE} user={User.get()}/>
                     </Card>

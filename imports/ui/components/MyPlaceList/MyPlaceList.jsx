@@ -13,7 +13,9 @@ export default class MyPlaceList extends Component
           .props
           .places
           .map((place, index) => {
-            return <MyPlaceItem key={index} businesse={place}/>
+            return <MyPlaceItem key={index} 
+            onItemClick={this.props.onItemClick}
+            businesse={place}/>
           })
 }
       </div>

@@ -5,6 +5,11 @@ import {User} from '../../../api/User';
 import {Button, Icon} from 'react-materialize';
 
 export default class MyPlaceItem extends Component {
+  
+    onItemClick = (event) => {
+        event.preventDefault();
+        this.props.onItemClick(this.props.businesse.url);
+    }
     render() {
 
         let adresse = this
@@ -36,7 +41,9 @@ export default class MyPlaceItem extends Component {
             }
         }
         return (
-            <div className="place-container">
+            <div 
+            onClick={this.onItemClick}
+            className="place-container">
                 <div className="card horizontal darken-1">
                     <div className="card-stacked">
                         <div className="card-content">
