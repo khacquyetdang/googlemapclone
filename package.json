@@ -1,7 +1,7 @@
 {
-  "name": "meteor-react-boilerplate",
+  "name": "google map clone",
   "version": "1.0.1",
-  "description": "Meteor React Boilerplate",
+  "description": "Google map clone",
   "main": "index.js",
   "scripts": {
     "start": "meteor run",
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "https://github.com/AdamBrodzinski/meteor-react-boilerplate"
   },
-  "author": "Ryen Beatty <ryen.beatty@gmail.com> (http://ryenbeatty.co)",
+  "author": "Khac Quyet DANG",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/AdamBrodzinski/meteor-react-boilerplate/issues"
