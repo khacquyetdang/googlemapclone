@@ -32,5 +32,12 @@
     "react-stars": "^2.2.5",
     "recompose": "^0.26.0",
     "tracker-component": "^1.3.21"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-class-properties": "^6.24.1"
+  },
+  "babel": {
+    "plugins": ["transform-class-properties"]
+
   }
 }

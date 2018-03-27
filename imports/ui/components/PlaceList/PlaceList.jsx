@@ -16,6 +16,8 @@ export default class PlaceList extends Component
             return <PlaceItem
             onItemHover={this.props.onItemHover}
             onPlaceClick={this.props.onPlaceClick} 
+            onPlaceContainerClick={this.props.onPlaceContainerClick}
+
             key={index} businesse={businesse}/>
           })
 }

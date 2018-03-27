@@ -15,7 +15,7 @@ export default class Home extends Component
     this.state = {
       place: null,
       placesData: null,
-      businesseIdActive : null,
+      businesseIdActive: null,
       loading: false,
       offset: 1,
       limitSearch: 20, // normally pass by props
@@ -103,6 +103,11 @@ export default class Home extends Component
       return (
         <div className="offset">
           <hr/>
+          {this.state.loading
+                && <div className="progress">
+                    <div className="indeterminate"></div>
+                  </div>}
+
           <span className="icon-text">
             {`Showing results ${this.state.offset} - ${this.state.offset + this.state.limitSearch}`}
           </span>
@@ -148,6 +153,12 @@ export default class Home extends Component
       Materialize.toast('Please login to add this adresse!', 4000);
     }
   }
+
+  openInNewTab(url) {
+    console.log("openInNewTab url ", url);
+    let win = window.open(url, '_blank');
+    //win.focus();
+  }
   render() {
     let businesses = [];
     if (this.state.placesData) {
@@ -166,9 +177,13 @@ export default class Home extends Component
                   </div>
                 : null}
               <SearchBar error={this.state.error} onKeyPress={this.handlerSearchKeyPress}></SearchBar>
-              <PlaceList businesses={businesses}
-              onItemHover={(id) => { this.setState({businesseIdActive : id})}}
-              onPlaceClick={this.onPlaceClick}/> {this.renderOffSetBar()}
+              <PlaceList
+                businesses={businesses}
+                onItemHover={(id) => {
+                this.setState({businesseIdActive: id})
+              }}
+                onPlaceContainerClick={this.openInNewTab}
+                onPlaceClick={this.onPlaceClick}/> {this.renderOffSetBar()}
             </div>
           </div>
           <div className="col m8 12">
@@ -177,7 +192,8 @@ export default class Home extends Component
                 isMarkerShown={true}
                 lng={this.state.lng}
                 lat={this.state.lat}
-                businesseIdActive = { this.state.businesseIdActive}
+                onPlaceContainerClick={this.openInNewTab}
+                businesseIdActive={this.state.businesseIdActive}
                 placesData={this.state.placesData}/>
             </div>
           </div>

@@ -25,6 +25,7 @@ class MyMap extends Component {
           ? businesses.map(businesse => <Marker
             key={businesse.id}
             businesse={businesse}
+            onPlaceContainerClick={this.props.onPlaceContainerClick}
             businesseIdActive={this.props.businesseIdActive}
             lat={businesse.coordinates.latitude}
             lng={businesse.coordinates.longitude}/>)

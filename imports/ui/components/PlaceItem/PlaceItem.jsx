@@ -5,6 +5,10 @@ import {User} from '../../../api/User';
 import {Button, Icon} from 'react-materialize';
 
 export default class PlaceItem extends Component {
+    goClick = (event) => {
+        event.preventDefault();
+        this.props.onPlaceContainerClick(this.props.businesse.url);
+    }
     render() {
 
         let adresse = this
@@ -38,6 +42,7 @@ export default class PlaceItem extends Component {
         }
         return (
             <div 
+            onClick={this.goClick}        
             onMouseEnter={() => this.props.onItemHover(this.props.businesse.id)}
             className="place-container">
                 <div className="card horizontal darken-1">
