@@ -9,8 +9,8 @@ ServiceConfiguration
         service: "facebook"
     }, {
         $set: {
-            consumerKey: "218334098902603",
-            secret: "4b9fc8004cbfdfc1c6b76234d183e3c1"
+            consumerKey: Meteor.settings.facebook.consumerKey,
+            secret: Meteor.settings.facebook.secret
         }
     });
 ServiceConfiguration
@@ -19,8 +19,8 @@ ServiceConfiguration
         service: "twitter"
     }, {
         $set: {
-            consumerKey: "i3kExjBaYwIhBTPbuvcc2APMx",
-            secret: "kU55cvth3p1wXxZPpBc4okfXMZHLDTCSXFAIZBRhAImbgn22m2"
+            consumerKey: Meteor.settings.twitter.consumerKey,
+            secret: Meteor.settings.twitter.secret
         }
     });
 

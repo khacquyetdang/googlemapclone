@@ -9,7 +9,7 @@ export default class Header extends React.Component {
   render() {
     return (
       <header>
-        <Navbar className="nav-container brand-logo" brand="InTheCity" right>
+        <Navbar className="nav-container brand-logo" brand="Google Clone" right>
           <NavItem href="/">Home
           </NavItem>
           {!User.isLoggedIn()
