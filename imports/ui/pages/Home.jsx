@@ -14,6 +14,7 @@ export default class Home extends Component
     super(props);
     this.state = {
       place: null,
+      term: null,
       placesData: null,
       businesseIdActive: null,
       loading: false,
@@ -26,9 +27,6 @@ export default class Home extends Component
     };
     this.onSetSidebarOpen = this
       .onSetSidebarOpen
-      .bind(this);
-    this.handlerSearchKeyPress = this
-      .handlerSearchKeyPress
       .bind(this);
     this.search = this
       .search
@@ -47,10 +45,10 @@ export default class Home extends Component
       .bind(this);
   }
   componentDidMount() {
-    this.search("Paris", 1);
+    this.search("Paris", null, 1);
   }
 
-  search(place, offset) {
+  search(place, term, offset) {
     console.log("search place:", place);
     this.setState({loading: true});
     let options = {
@@ -60,7 +58,10 @@ export default class Home extends Component
         "limit": this.state.limitSearch
       }
     };
-    this.setState({place: place})
+    if (term) {
+      options.params.term = term;
+    }
+    this.setState({place: place, term: term})
     Meteor.call('getPlaces', options, (err, res) => {
       if (err) {
         if (err.details) {
@@ -78,13 +79,10 @@ export default class Home extends Component
     });
   }
 
-  handlerSearchKeyPress(e) {
-    e.which = e.which || e.keyCode;
-    if (e.which === 13) {
-      console.log("handlerSearchKeyPress: ", e.target.value);
-      this.setState({offset: 1});
-      this.search(e.target.value, 1);
-    }
+  handlerSearch = (location, term) => {
+    console.log("handlerSearch: ", location);
+    this.setState({offset: 1});
+    this.search(location, term, 1);
   }
 
   onSetSidebarOpen(open) {
@@ -92,21 +90,19 @@ export default class Home extends Component
   }
 
   previousOffSet() {
-    this.search(this.state.place, this.state.offset - this.state.limitSearch);
+    this.search(this.state.place, this.state.term, this.state.offset - this.state.limitSearch);
   }
   nextOffSet() {
-    this.search(this.state.place, this.state.offset + this.state.limitSearch);
+    this.search(this.state.place, this.state.term, this.state.offset + this.state.limitSearch);
   }
   renderOffSetBar() {
 
     if (this.state.placesData) {
       return (
         <div className="offset">
-          <hr/>
-          {this.state.loading
-                && <div className="progress">
-                    <div className="indeterminate"></div>
-                  </div>}
+          <hr/> {this.state.loading && <div className="progress">
+            <div className="indeterminate"></div>
+          </div>}
 
           <span className="icon-text">
             {`Showing results ${this.state.offset} - ${this.state.offset + this.state.limitSearch}`}
@@ -174,7 +170,7 @@ export default class Home extends Component
                     <div className="indeterminate"></div>
                   </div>
                 : null}
-              <SearchBar error={this.state.error} onKeyPress={this.handlerSearchKeyPress}></SearchBar>
+              <SearchBar error={this.state.error} onSearchEnterKey={this.handlerSearch}></SearchBar>
               <PlaceList
                 businesses={businesses}
                 onItemHover={(id) => {

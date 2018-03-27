@@ -10,7 +10,6 @@ class MyMap extends Component {
       ? this.props.placesData.businesses
       : null;
 
-    console.log("map center lng: ", this.props.lng, "lat: ", this.props.lat);
     return (
       <GoogleMapReact
         bootstrapURLKeys={{

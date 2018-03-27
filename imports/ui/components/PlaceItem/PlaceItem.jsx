@@ -7,7 +7,9 @@ import {Button, Icon} from 'react-materialize';
 export default class PlaceItem extends Component {
     goClick = (event) => {
         event.preventDefault();
-        this.props.onPlaceContainerClick(this.props.businesse.url);
+        this
+            .props
+            .onPlaceContainerClick(this.props.businesse.url);
     }
     render() {
 
@@ -20,31 +22,29 @@ export default class PlaceItem extends Component {
                 accu = accu + " " + current;
                 return accu;
             }, "");
-        
+
         let peopleGoingToThisPlace;
         let userIds = this.props.businesse.userIds;
         let isGoing = false;
-        if (userIds && userIds.length > 0)
-        {
-            if (userIds.includes(User.id()))
-            {
-                if (userIds.length === 1)
-                {
+        if (userIds && userIds.length > 0) {
+            if (userIds.includes(User.id())) {
+                if (userIds.length === 1) {
                     peopleGoingToThisPlace = "You want to go this place";
                 } else {
-                    peopleGoingToThisPlace = `You and ${userIds.length - 1} other(s) person(s) want to go this place`;                    
+                    peopleGoingToThisPlace = `You and ${userIds.length - 1} other(s) person(s) want to go this place`;
                 }
                 isGoing = true;
             } else {
-                peopleGoingToThisPlace = `${userIds.length} person(s) want to go this place`;                    
-                
+                peopleGoingToThisPlace = `${userIds.length} person(s) want to go this place`;
+
             }
         }
+        let categorieTitle = this.props.businesse.categories.length >= 1 ? this.props.businesse.categories[0].title : null;
         return (
-            <div 
-            onClick={this.goClick}        
-            onMouseEnter={() => this.props.onItemHover(this.props.businesse.id)}
-            className="place-container">
+            <div
+                onClick={this.goClick}
+                onMouseEnter={() => this.props.onItemHover(this.props.businesse.id)}
+                className="place-container">
                 <div className="card horizontal darken-1">
                     <div className="card-stacked">
                         <div className="card-content">
@@ -68,7 +68,7 @@ export default class PlaceItem extends Component {
                                 </span>
                             </div>
                             <p className="placeDetail">
-                                {this.props.businesse.categories[0].title}
+                                {categorieTitle}
                                 <span>{adresse}
                                 </span>
                             </p>
@@ -76,10 +76,12 @@ export default class PlaceItem extends Component {
                         <div className="card-action">
                             <Button
                                 onClick={() => this.props.onPlaceClick(this.props.businesse, isGoing)}
-                                waves="light">{isGoing ? "Don't go" : "Go" }
+                                waves="light">{isGoing
+                                    ? "Don't go"
+                                    : "Go"}
                                 <Icon right>send</Icon>
                             </Button>
-                            { peopleGoingToThisPlace && <div className="people">{peopleGoingToThisPlace}</div> }
+                            {peopleGoingToThisPlace && <div className="people">{peopleGoingToThisPlace}</div>}
                         </div>
                     </div>
 
