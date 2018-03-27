@@ -39,7 +39,9 @@ export default class PlaceItem extends Component {
 
             }
         }
-        let categorieTitle = this.props.businesse.categories.length >= 1 ? this.props.businesse.categories[0].title : null;
+        let categorieTitle = this.props.businesse.categories.length >= 1
+            ? this.props.businesse.categories[0].title
+            : null;
         return (
             <div
                 onClick={this.goClick}
@@ -75,7 +77,14 @@ export default class PlaceItem extends Component {
                         </div>
                         <div className="card-action">
                             <Button
-                                onClick={() => this.props.onPlaceClick(this.props.businesse, isGoing)}
+                                onClick={(event) => {
+                                event.preventDefault();
+                                if (event.stopPropagation) 
+                                    event.stopPropagation();
+                                this
+                                    .props
+                                    .onPlaceClick(this.props.businesse, isGoing);
+                            }}
                                 waves="light">{isGoing
                                     ? "Don't go"
                                     : "Go"}
